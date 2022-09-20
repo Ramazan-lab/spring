@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- ANNOTATİON KULLANILDIĞINDA XML DOSYASINDAN DEĞİL NORMAL CLASSTAN ULAŞILIR-->
+
+	<!--<context:property-placeholder location="classpath:Values.properties"/>
+	<bean id="database" class="SpringExamples.CustomerDal">
+		<property name="connectionString" value="${database.connectionString}"/>
+		<property name="email" value="${local.email}"/>
+
+	</bean>
+	<bean id="service" class="SpringExamples.CustomerManager">
+		<constructor-arg ref="database"/>
+	</bean>-->
+
+	<context:component-scan base-package="SpringExamples"/>
+	
+</beans>
