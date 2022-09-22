@@ -1,13 +1,15 @@
-package com.example.springboottest.DAL;
+package com.example.springboottest.Bussiness;
+
 import com.example.springboottest.ApiTest.City;
 
-import java.util.ArrayList;
+import java.io.InvalidObjectException;
 import java.util.List;
 
-public interface ICityDal {
+public interface ICityService {
     List<City> getAll();
-    void add(City city);
+    void add(City city) throws InvalidObjectException;
     void update(City city);
     void delete(City city);
     City getCityByID(int id);
 }
+
