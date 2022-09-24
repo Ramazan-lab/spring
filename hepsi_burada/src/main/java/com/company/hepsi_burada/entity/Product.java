@@ -1,13 +1,14 @@
 package com.company.hepsi_burada.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -16,12 +17,15 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="product")
-public class Product {
+public class Product  {
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "product_generator")
     private Long id;
 
+   // @ManyToOne
+  //  @JoinColumn(name = "category_id")
+   // private Category category;
 
     @Column(name="name")
     private String name;
@@ -37,11 +41,13 @@ public class Product {
     protected Date lastModifiedDate;
 
 
-    public Product(String name, String price) {
-        this.name=name;
-        this.price=price;
+  /*  public Category getCategory() {
+        return category;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }*/
     public Long getId() {
         return id;
     }

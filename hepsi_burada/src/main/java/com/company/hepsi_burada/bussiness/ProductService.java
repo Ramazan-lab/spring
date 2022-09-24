@@ -2,6 +2,7 @@ package com.company.hepsi_burada.bussiness;
 
 import com.company.hepsi_burada.dal.IProductDal;
 import com.company.hepsi_burada.dal.ProductDal;
+import com.company.hepsi_burada.dal.ProductRepository;
 import com.company.hepsi_burada.dto.ProductDto;
 import com.company.hepsi_burada.entity.Product;
 import org.hibernate.Session;
@@ -12,45 +13,59 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class ProductService implements IProductService<ProductDto> {
-
-    public ProductService(IProductDal productDal) {
-        this.productDal = productDal;
-    }
-
+public class ProductService implements IProductService<Product> {
     @Autowired
     private IProductDal productDal;
 
-    @Override
-    public void create(ProductDto t) {
+    @Autowired
+    private ProductRepository productRepository;
+    public ProductService(IProductDal productDal,ProductRepository productRepository) {
 
-        Product p1=new Product(t.getName(),t.getPrice());
-        this.productDal.create(p1);
+        this.productDal = productDal;
+        this.productRepository=productRepository;
+    }
+
+
+
+    @Override
+    public void create(Product t) {
+
+        this.productDal.create(t);
     }
 
     @Override
-    public ProductDto update(Long id, ProductDto t) {
-        return null;
+    @Transactional
+    public void update(Product product) {
+        this.productDal.update(product);
     }
+
 
     @Override
     public void delete(Long id) {
-
+            this.productDal.delete(id);
     }
 
     @Override
-
-    public List<ProductDto> getAll() {
+    public List<Product> getAll() {
         return this.productDal.getAll();
     }
 
     @Override
-    public ProductDto getProductById(Long id) {
+    public Product getProductById(Long id) {
+        if(id!=null) {
+            return (Product) this.productDal.getProductById(id);
+        }
         return null;
     }
 
     @Override
     public boolean checkProductIsExist(Long id) {
-        return false;
+
+        return this.productDal.checkProductIsExist(id);
+    }
+
+    @Override
+    public List<Product> getproductsByCategoryId(Long category_id) {
+        return (List<Product>) this.productDal.getproductsByCategoryId(category_id);
     }
 }
