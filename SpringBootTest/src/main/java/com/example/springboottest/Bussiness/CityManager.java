@@ -19,11 +19,6 @@ public class CityManager implements ICityService {
         this.cityDal = cityDal;
     }
 
-
-
-
-
-
     @Override
     @Transactional
     public List<City> getAll() {
